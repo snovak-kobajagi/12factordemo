@@ -1,0 +1,23 @@
+inputs:
+    environment:
+      description: The name of the environment to plan against (dev, staging, prod)
+      required: true
+    gitub_role_iam_token:
+      description: The IAM token to use for the workflows
+      required: true 
+    iam_role_for_workflows:
+      description: The IAM role to assume for the workflows
+      required: true
+    aws_region:
+      description: The AWS region to use for the workflows
+      required: true
+      
+  
+runs:
+  using: "composite"
+  steps:
+      - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        role-to-assume: ${{ inputs.iam_role_for_workflows }}
+        aws-region: ${{ inputs.iam_role_workflows }}

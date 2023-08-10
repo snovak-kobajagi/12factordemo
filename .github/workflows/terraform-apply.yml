@@ -1,0 +1,25 @@
+name: "terraform plan"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  dev-plan:
+    runs-on: ubuntu-latest
+    name: "[DEV] terraform plan"
+
+    permissions:
+      contents: "read"
+      id-token: "write"
+      pull-requests: "write"
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Plan
+        uses: ./.github/actions/snovak-terraform-plan
+        with:
+          environment: dev
