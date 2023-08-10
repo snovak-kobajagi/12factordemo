@@ -1,0 +1,23 @@
+# Use an official Python runtime as a parent image
+FROM python:3.9-slim-buster
+
+# Set the working directory inside the container
+WORKDIR /usr/src/app
+
+# Copy the local code to the container
+COPY ./snovak/ .
+COPY requirements.txt requirements.txt
+
+# Install any needed packages specified in requirements.txt
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    rsync && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN pip install --no-cache-dir -r requirements.txt
+RUN chmod +x ./your_cli_script.py
+
+# Set environment variables to non-interactive (this prevents some prompts)
+# ENV DEBIAN_FRONTEND=noninteractive
+# Define the entry point for the application
+ENTRYPOINT ["python", "./your_cli_script.py"]

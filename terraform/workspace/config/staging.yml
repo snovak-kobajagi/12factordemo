@@ -1,0 +1,9 @@
+
+storage:
+  s3_bucket_name: 'prod-my-app-bucket'
+
+auth:
+  aws_account_id: '098765432109'
+
+logs:
+  cloudwatch_log_group: 'prod-logs'
